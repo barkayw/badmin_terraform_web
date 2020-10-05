@@ -1,0 +1,28 @@
+
+
+aws s3api create-bucket --bucket bw-terraform-state-bucket
+
+terraform init
+
+terraform fmt
+
+terraform validate
+
+
+/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+
+ssh key
+ssh-keygen -t rsa
+
+pip3 install boto3 --user
+
+
+aws route53 list-hosted-zones
+
+barkaywolfsohn.com.
+
+
+terraform output
+
+
+terraform console
