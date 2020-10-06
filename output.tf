@@ -13,7 +13,7 @@ output "VPC-ID-US-EAST-1" {
 //  value = aws_vpc_peering_connection.useast1-uswest2
 //}
 output "Jenkins-Main-Node-Public-IP" {
-  value = aws_instance.jenkins-master.public_ip
+  value = aws_instance.httpd-server.public_ip
 }
 
 //output "Jenkins-Worker-Public-IPs" {

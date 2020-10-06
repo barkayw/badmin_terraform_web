@@ -27,7 +27,7 @@ resource "aws_key_pair" "master-key" {
 //  public_key = file("~/.ssh/id_rsa.pub")
 //}
 #Create and bootstrap EC2 in us-east-1
-resource "aws_instance" "jenkins-master" {
+resource "aws_instance" "httpd-server" {
   provider                    = aws.region-master
   ami                         = data.aws_ssm_parameter.linuxAmi.value
   instance_type               = var.instance-type
@@ -49,7 +49,7 @@ resource "aws_instance" "jenkins-master" {
   provisioner "local-exec" {
     command = <<EOF
 aws --profile ${var.profile} ec2 wait instance-status-ok --region ${var.region-master} --instance-ids ${self.id}
-ansible-playbook --extra-vars 'passed_in_hosts=tag_Name_${self.tags.Name}' ansible_templates/jenkins-master-sample.yml
+ansible-playbook --extra-vars 'passed_in_hosts=tag_Name_${self.tags.Name}' ansible_templates/httpd-server-sample.yml
 EOF
   }
 }
@@ -68,7 +68,7 @@ EOF
 //  tags = {
 //    Name = join("_", ["jenkins_worker_tf", count.index + 1])
 //  }
-//  depends_on = [aws_main_route_table_association.set-worker-default-rt-assoc, aws_instance.jenkins-master]
+//  depends_on = [aws_main_route_table_association.set-worker-default-rt-assoc, aws_instance.httpd-server]
 //  #The code below is ONLY the provisioner block which needs to be
 //  #inserted inside the resource block for Jenkins EC2 worker in Terraform
 //  provisioner "local-exec" {
