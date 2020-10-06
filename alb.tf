@@ -1,12 +1,12 @@
 resource "aws_lb" "application-lb" {
   provider           = aws.region-master
-  name               = "jenkins-lb"
+  name               = "httpd-lb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.lb-sg.id]
   subnets            = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
   tags = {
-    Name = "Jenkins-LB"
+    Name = "httpd-LB"
   }
 }
 
@@ -30,7 +30,7 @@ resource "aws_lb_target_group" "app-lb-tg" {
     matcher  = "200-299"
   }
   tags = {
-    Name = "jenkins-target-group"
+    Name = "httpd-target-group"
   }
 }
 

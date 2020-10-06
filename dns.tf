@@ -35,3 +35,26 @@ resource "aws_route53_record" "jenkins" {
   }
 }
 
+resource "aws_route53_record" "citi" {
+  provider = aws.region-master
+  zone_id  = data.aws_route53_zone.dns.zone_id
+  name     = join(".", ["citi", data.aws_route53_zone.dns.name])
+  type     = "A"
+  alias {
+    name                   = aws_lb.application-lb.dns_name
+    zone_id                = aws_lb.application-lb.zone_id
+    evaluate_target_health = true
+  }
+}
+
+resource "aws_route53_record" "jp" {
+  provider = aws.region-master
+  zone_id  = data.aws_route53_zone.dns.zone_id
+  name     = join(".", ["jp", data.aws_route53_zone.dns.name])
+  type     = "A"
+  alias {
+    name                   = aws_lb.application-lb.dns_name
+    zone_id                = aws_lb.application-lb.zone_id
+    evaluate_target_health = true
+  }
+}
