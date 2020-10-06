@@ -64,13 +64,6 @@ resource "aws_lb_listener" "listener-https" {
   }
 }
 
-
-//resource "aws_lb_target_group_attachment" "jenkins-master-attach" {
-//  provider         = aws.region-master
-//  target_group_arn = aws_lb_target_group.app-lb-tg.arn
-//  target_id        = var.webserver-port
-//}
-
 resource "aws_lb_target_group_attachment" "lb_target_group_attach" {
   provider         = aws.region-master
   target_group_arn = aws_lb_target_group.app-lb-tg.arn

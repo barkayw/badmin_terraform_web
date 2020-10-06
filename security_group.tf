@@ -60,34 +60,3 @@ resource "aws_security_group" "httpd-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-
-
-#Create SG for allowing TCP/22 from your IP in us-west-2
-//resource "aws_security_group" "jenkins-sg-oregon" {
-//  provider = aws.region-worker
-//
-//  name        = "jenkins-sg-oregon"
-//  description = "Allow TCP/8080 & TCP/22"
-//  vpc_id      = aws_vpc.vpc_worker_oregon.id
-//  ingress {
-//    description = "Allow 22 from our public IP"
-//    from_port   = 22
-//    to_port     = 22
-//    protocol    = "tcp"
-//    cidr_blocks = [var.external_ip]
-//  }
-//  ingress {
-//    description = "Allow traffic from us-east-1"
-//    from_port   = 0
-//    to_port     = 0
-//    protocol    = "-1"
-//    cidr_blocks = ["10.0.1.0/24"]
-//  }
-//  egress {
-//    from_port   = 0
-//    to_port     = 0
-//    protocol    = "-1"
-//    cidr_blocks = ["0.0.0.0/0"]
-//  }
-//}
