@@ -27,9 +27,9 @@ resource "aws_security_group" "lb-sg" {
 }
 
 #Create SG for allowing TCP/8080 from * and TCP/22 from your IP in us-east-1
-resource "aws_security_group" "jenkins-sg" {
+resource "aws_security_group" "httpd-sg" {
   provider    = aws.region-master
-  name        = "jenkins-sg"
+  name        = "httpd-sg"
   description = "Allow TCP/8080 & TCP/22"
   vpc_id      = aws_vpc.vpc_master.id
   ingress {

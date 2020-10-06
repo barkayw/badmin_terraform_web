@@ -16,7 +16,7 @@ data "aws_ssm_parameter" "linuxAmi" {
 #Create key-pair for logging into EC2 in us-east-1
 resource "aws_key_pair" "master-key" {
   provider   = aws.region-master
-  key_name   = "jenkins"
+  key_name   = "httpd_key_pub"
   public_key = file("~/.ssh/id_rsa.pub")
 }
 
@@ -33,11 +33,11 @@ resource "aws_instance" "httpd-server" {
   instance_type               = var.instance-type
   key_name                    = aws_key_pair.master-key.key_name
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.jenkins-sg.id]
+  vpc_security_group_ids      = [aws_security_group.httpd-sg.id]
   subnet_id                   = aws_subnet.subnet_1.id
 
   tags = {
-    Name = "jenkins_master_tf"
+    Name = "httpd_server_tf"
   }
 
   depends_on = [aws_main_route_table_association.set-master-default-rt-assoc]
