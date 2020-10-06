@@ -6,7 +6,7 @@ output "VPC-ID-US-EAST-1" {
 }
 
 
-output "Jenkins-Main-Node-Public-IP" {
+output "Server-Public-IP" {
   value = aws_instance.httpd-server.public_ip
 }
 
