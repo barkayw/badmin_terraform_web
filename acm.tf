@@ -2,11 +2,11 @@
 #Creates ACM certificate and requests validation via DNS(Route53)
 resource "aws_acm_certificate" "lb-https" {
   provider    = aws.region-master
-  domain_name = join(".", ["traiana", data.aws_route53_zone.dns.name])
+  domain_name = join(".", [var.dns-01, data.aws_route53_zone.dns.name])
   subject_alternative_names = [
-    join(".", ["citi", data.aws_route53_zone.dns.name]),
-    join(".", ["bofa", data.aws_route53_zone.dns.name]),
-    join(".", ["jp", data.aws_route53_zone.dns.name])
+    join(".", [var.dns-02, data.aws_route53_zone.dns.name]),
+    join(".", [var.dns-03, data.aws_route53_zone.dns.name]),
+    join(".", [var.dns-04, data.aws_route53_zone.dns.name])
   ]
   validation_method = "DNS"
 

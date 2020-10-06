@@ -17,6 +17,6 @@ output "LB-DNS-NAME" {
 
 #Add to outputs.tf for better segregation
 
-output "url-traiana" {
-  value = aws_route53_record.a_record_traiana.fqdn
-}
+//output "url-traiana" {
+//  value = aws_route53_record.a_record_traiana.fqdn
+//}

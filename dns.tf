@@ -22,12 +22,28 @@ resource "aws_route53_record" "cert_validation" {
   zone_id = data.aws_route53_zone.dns.zone_id
 }
 
-
+//#Create Alias record towards ALB from Route53
+//resource "aws_route53_record" "a_record_traiana" {
+//  provider = aws.region-master
+//  zone_id  = data.aws_route53_zone.dns.zone_id
+//  for_each = {
+//    for val in aws_acm_certificate.lb-https.domain_validation_options : val.domain_name => {
+//      name = val.resource_record_name
+//    }
+//  }
+//  name = each.value.name
+//  type = "A"
+//  alias {
+//    name                   = aws_lb.application-lb.dns_name
+//    zone_id                = aws_lb.application-lb.zone_id
+//    evaluate_target_health = true
+//  }
+//}
 #Create Alias record towards ALB from Route53
-resource "aws_route53_record" "a_record_traiana" {
+resource "aws_route53_record" "a_record_dns_01" {
   provider = aws.region-master
   zone_id  = data.aws_route53_zone.dns.zone_id
-  name     = join(".", ["traiana", data.aws_route53_zone.dns.name])
+  name     = join(".", [var.dns-01, data.aws_route53_zone.dns.name])
   type     = "A"
   alias {
     name                   = aws_lb.application-lb.dns_name
@@ -35,10 +51,10 @@ resource "aws_route53_record" "a_record_traiana" {
     evaluate_target_health = true
   }
 }
-resource "aws_route53_record" "a_record_citi" {
+resource "aws_route53_record" "a_record_dns_02" {
   provider = aws.region-master
   zone_id  = data.aws_route53_zone.dns.zone_id
-  name     = join(".", ["citi", data.aws_route53_zone.dns.name])
+  name     = join(".", [var.dns-02, data.aws_route53_zone.dns.name])
   type     = "A"
   alias {
     name                   = aws_lb.application-lb.dns_name
@@ -46,10 +62,10 @@ resource "aws_route53_record" "a_record_citi" {
     evaluate_target_health = true
   }
 }
-resource "aws_route53_record" "a_record_bofa" {
+resource "aws_route53_record" "a_record_bofa_dns_03" {
   provider = aws.region-master
   zone_id  = data.aws_route53_zone.dns.zone_id
-  name     = join(".", ["bofa", data.aws_route53_zone.dns.name])
+  name     = join(".", [var.dns-03, data.aws_route53_zone.dns.name])
   type     = "A"
   alias {
     name                   = aws_lb.application-lb.dns_name
@@ -57,10 +73,10 @@ resource "aws_route53_record" "a_record_bofa" {
     evaluate_target_health = true
   }
 }
-resource "aws_route53_record" "a_record_jp" {
+resource "aws_route53_record" "a_record_jp_dns_04" {
   provider = aws.region-master
   zone_id  = data.aws_route53_zone.dns.zone_id
-  name     = join(".", ["jp", data.aws_route53_zone.dns.name])
+  name     = join(".", [var.dns-04, data.aws_route53_zone.dns.name])
   type     = "A"
   alias {
     name                   = aws_lb.application-lb.dns_name
