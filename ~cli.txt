@@ -26,3 +26,6 @@ terraform output
 
 
 terraform console
+
+
+validate_certificate = false

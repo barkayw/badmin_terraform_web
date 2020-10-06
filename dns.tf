@@ -7,6 +7,7 @@ data "aws_route53_zone" "dns" {
 #Create record in hosted zone for ACM Certificate Domain verification
 resource "aws_route53_record" "cert_validation" {
   provider = aws.region-master
+
   for_each = {
     for val in aws_acm_certificate.lb-https.domain_validation_options : val.domain_name => {
       name   = val.resource_record_name
@@ -26,7 +27,40 @@ resource "aws_route53_record" "cert_validation" {
 resource "aws_route53_record" "a_record_traiana" {
   provider = aws.region-master
   zone_id  = data.aws_route53_zone.dns.zone_id
-  name     = join(".", ["jenkins", data.aws_route53_zone.dns.name])
+  name     = join(".", ["traiana", data.aws_route53_zone.dns.name])
+  type     = "A"
+  alias {
+    name                   = aws_lb.application-lb.dns_name
+    zone_id                = aws_lb.application-lb.zone_id
+    evaluate_target_health = true
+  }
+}
+resource "aws_route53_record" "a_record_citi" {
+  provider = aws.region-master
+  zone_id  = data.aws_route53_zone.dns.zone_id
+  name     = join(".", ["citi", data.aws_route53_zone.dns.name])
+  type     = "A"
+  alias {
+    name                   = aws_lb.application-lb.dns_name
+    zone_id                = aws_lb.application-lb.zone_id
+    evaluate_target_health = true
+  }
+}
+resource "aws_route53_record" "a_record_bofa" {
+  provider = aws.region-master
+  zone_id  = data.aws_route53_zone.dns.zone_id
+  name     = join(".", ["bofa", data.aws_route53_zone.dns.name])
+  type     = "A"
+  alias {
+    name                   = aws_lb.application-lb.dns_name
+    zone_id                = aws_lb.application-lb.zone_id
+    evaluate_target_health = true
+  }
+}
+resource "aws_route53_record" "a_record_jp" {
+  provider = aws.region-master
+  zone_id  = data.aws_route53_zone.dns.zone_id
+  name     = join(".", ["jp", data.aws_route53_zone.dns.name])
   type     = "A"
   alias {
     name                   = aws_lb.application-lb.dns_name
