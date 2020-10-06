@@ -6,7 +6,7 @@ output "VPC-ID-US-EAST-1" {
 }
 
 
-output "Jenkins-Main-Node-Public-IP" {
+output "Server-Public-IP" {
   value = aws_instance.httpd-server.public_ip
 }
 
@@ -17,14 +17,6 @@ output "LB-DNS-NAME" {
 
 #Add to outputs.tf for better segregation
 
-output "url-jenkins" {
-  value = aws_route53_record.jenkins.fqdn
-}
-
-output "url-citi" {
-  value = aws_route53_record.citi.fqdn
-}
-
-output "url-jp" {
-  value = aws_route53_record.jp.fqdn
-}
+//output "url-traiana" {
+//  value = aws_route53_record.a_record_traiana.fqdn
+//}

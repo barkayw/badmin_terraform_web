@@ -5,7 +5,7 @@ resource "aws_vpc" "vpc_master" {
   enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
-    Name = "master-vpc-jenkins"
+    Name = "master-vpc"
   }
 
 }

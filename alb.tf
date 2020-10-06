@@ -12,7 +12,7 @@ resource "aws_lb" "application-lb" {
 
 
 #Create variable named webserver-port , type number , default 80
-#Change port to variable in jenkins-sg group ingress rule which allows traffic from LB SG.
+#Change port to variable in sg group ingress rule which allows traffic from LB SG.
 
 resource "aws_lb_target_group" "app-lb-tg" {
   provider    = aws.region-master
