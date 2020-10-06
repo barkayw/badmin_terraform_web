@@ -22,23 +22,6 @@ resource "aws_route53_record" "cert_validation" {
   zone_id = data.aws_route53_zone.dns.zone_id
 }
 
-//#Create Alias record towards ALB from Route53
-//resource "aws_route53_record" "a_record_traiana" {
-//  provider = aws.region-master
-//  zone_id  = data.aws_route53_zone.dns.zone_id
-//  for_each = {
-//    for val in aws_acm_certificate.lb-https.domain_validation_options : val.domain_name => {
-//      name = val.resource_record_name
-//    }
-//  }
-//  name = each.value.name
-//  type = "A"
-//  alias {
-//    name                   = aws_lb.application-lb.dns_name
-//    zone_id                = aws_lb.application-lb.zone_id
-//    evaluate_target_health = true
-//  }
-//}
 #Create Alias record towards ALB from Route53
 resource "aws_route53_record" "a_record_dns_01" {
   provider = aws.region-master
