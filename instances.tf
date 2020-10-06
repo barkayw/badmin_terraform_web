@@ -40,7 +40,7 @@ resource "aws_instance" "jenkins-master" {
     Name = "jenkins_master_tf"
   }
 
-    depends_on = [aws_main_route_table_association.set-master-default-rt-assoc]
+  depends_on = [aws_main_route_table_association.set-master-default-rt-assoc]
 
   #The code below is ONLY the provisioner block which needs to be
   #inserted inside the resource block for Jenkins EC2 master Terraform
