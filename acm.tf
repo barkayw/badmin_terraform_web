@@ -3,9 +3,8 @@
 resource "aws_acm_certificate" "cert" {
   provider    = aws.region-master
   domain_name = join(".", ["traiana", data.aws_route53_zone.dns.name])
-  for_each    = var.subdomains
   subject_alternative_names = [
-    join(".", [var.subdomains[each.key], data.aws_route53_zone.dns.name])
+    join(".", [var.subdomains[1], data.aws_route53_zone.dns.name])
   ]
   validation_method = "DNS"
 
