@@ -1,12 +1,11 @@
 #ACM CONFIGURATION
 #Creates ACM certificate and requests validation via DNS(Route53)
-resource "aws_acm_certificate" "lb-https" {
+resource "aws_acm_certificate" "cert" {
   provider    = aws.region-master
-  domain_name = join(".", [var.dns-01, data.aws_route53_zone.dns.name])
+  domain_name = join(".", ["traiana", data.aws_route53_zone.dns.name])
+  for_each    = var.subdomains
   subject_alternative_names = [
-    join(".", [var.dns-02, data.aws_route53_zone.dns.name]),
-    join(".", [var.dns-03, data.aws_route53_zone.dns.name]),
-    join(".", [var.dns-04, data.aws_route53_zone.dns.name])
+    join(".", [var.subdomains[each.key], data.aws_route53_zone.dns.name])
   ]
   validation_method = "DNS"
 
@@ -22,9 +21,11 @@ resource "aws_acm_certificate" "lb-https" {
   }
 }
 #Validates ACM issued certificate via Route53
-resource "aws_acm_certificate_validation" "cert" {
-  provider = aws.region-master
-  certificate_arn = aws_acm_certificate.lb-https.arn
-  # for_each        = aws_route53_record.cert_validation
-  #  validation_record_fqdns = [aws_route53_record.cert_validation[each.key].fqdn]
+resource "aws_acm_certificate_validation" "cert_validation" {
+  provider                = aws.region-master
+  certificate_arn         = aws_acm_certificate.cert.arn
+  for_each                = aws_route53_record.cname_record_dns
+  validation_record_fqdns = [aws_route53_record.cname_record_dns[each.key].fqdn]
+
+
 }

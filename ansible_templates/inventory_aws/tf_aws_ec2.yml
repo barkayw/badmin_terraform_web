@@ -44,5 +44,5 @@ hostnames:
 # a list in order of precedence for hostname variables.
 #
   - ip-address
-  - dns-name
+  - domains
   - tag:Name
